@@ -67,6 +67,17 @@ public class KafkaConsumerConfig {
         return props;
     }
 
+    @Bean(name = "ConsumerObjectFactory")
+    public ConsumerFactory<Long, Object> consumerObjectFactory() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
+        return new DefaultKafkaConsumerFactory<>(props);
+    }
+
     @Bean
     public StringJsonMessageConverter converter() {
         return new StringJsonMessageConverter();

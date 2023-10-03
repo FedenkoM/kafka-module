@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import({KafkaProducerConfig.class, KafkaConsumerConfig.class, KafkaTopicConfig.class})
-public class ClientApplication {
+@Import({KafkaConsumerConfig.class, KafkaProducerConfig.class, KafkaTopicConfig.class})
+public class CourierApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ClientApplication.class, args);
+        SpringApplication.run(CourierApplication.class, args);
     }
 }

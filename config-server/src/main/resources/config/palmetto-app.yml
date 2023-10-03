@@ -1,0 +1,20 @@
+server:
+  port: ${SERVER_PORT:8095}
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    # Producer Configuration
+    producer:
+      retries: 10
+      compression-type: lz4
+      batch-size: 65536
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    # Consumer Configuration
+    consumer:
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

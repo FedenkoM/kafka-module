@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: palmetto-app
+  config:
+    import: optional:configserver:http://localhost:8888
