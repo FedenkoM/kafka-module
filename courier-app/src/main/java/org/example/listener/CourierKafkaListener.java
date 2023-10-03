@@ -20,12 +20,14 @@ public class CourierKafkaListener {
     private final ObjectMapper objectMapper;
     private final CourierService courierService;
 
-    @KafkaListener(id = "group_id_courier", topics = {"order"}, containerFactory = "filterKafkaListenerContainerFactory")
+    @KafkaListener(id = "group_id_courier", topics = {"notification"}, containerFactory = "singleFactory")
     @SneakyThrows
     public void consume(KafkaEvent event) {
         log.info("=> consumed {}", writeValueAsString(event));
         var payload = (HashMap<String, Object>) event.getPayload();
-        courierService.deliverOrderToCustomer(Long.valueOf(payload.get("id").toString()));
+        if ("READY".equals(payload.get("status").toString())) {
+            courierService.deliverOrderToCustomer(Long.valueOf(payload.get("id").toString()));
+        }
     }
 
     private String writeValueAsString(Object dto) {

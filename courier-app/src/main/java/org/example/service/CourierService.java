@@ -1,5 +1,6 @@
 package org.example.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.DefaultMetadata;
@@ -12,9 +13,10 @@ import static java.time.LocalDateTime.now;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CourierService {
 
-    private KafkaMessageProducer kafkaMessageProducer;
+    private final KafkaMessageProducer kafkaMessageProducer;
 
     @SneakyThrows
     public void deliverOrderToCustomer(Long id) {
