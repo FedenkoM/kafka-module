@@ -30,17 +30,38 @@ services:
     networks:
       - postgres
 
+  zookeeper:
+    image: zookeeper
+    restart: always
+    container_name: zookeeper
+    hostname: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOO_MY_ID: 1
+
   kafka:
-    image: johnnypark/kafka-zookeeper
-    container_name: kafka-container
+    image: wurstmeister/kafka
+    container_name: kafka
     ports:
       - "9092:9092"
-      - "2181:2181"
-      - "9999:9999"
     environment:
-      ADVERTISED_HOST: 127.0.0.1
-      NUM_PARTITIONS: 10
-      KAFKA_CREATE_TOPICS: "kafka-module"
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1 #[machine-ip-address]
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  kafka_manager:
+    image: hlebalbau/kafka-manager:stable
+    container_name: kafka-manager
+    restart: always
+    ports:
+      - "9000:9000"
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+      APPLICATION_SECRET: "random-secret"
+    command: -Dpidfile.path=/dev/null
 
 networks:
   postgres:
