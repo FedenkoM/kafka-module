@@ -26,7 +26,7 @@ public class CourierService {
     }
 
     private KafkaEvent getKafkaEvent(Long id) {
-        return new KafkaEvent(new DefaultMetadata("v1", "palmetto-app", "order_processing", now()),
+        return new KafkaEvent(new DefaultMetadata("v1", "courier-app", "order_processing", now()),
             Map.of("id", id, "status", "DELIVERED"));
     }
 
