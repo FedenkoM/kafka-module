@@ -19,7 +19,7 @@ public class PalmettoKafkaListener {
     private final ObjectMapper objectMapper;
     private final PalmettoService palmettoService;
 
-    @KafkaListener(id = "group_id", topics = {"order"}, containerFactory = "singleFactory")
+    @KafkaListener(id = "palmetto_group_id", topics = {"order"}, containerFactory = "singleFactory")
     @SneakyThrows
     public void consume(KafkaEvent event) {
         log.info("=> consumed {}", writeValueAsString(event));

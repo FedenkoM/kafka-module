@@ -23,7 +23,7 @@ public class OrderKafkaListener {
     private final ObjectMapper objectMapper;
     private final ClientService clientService;
 
-    @KafkaListener(id = "group_id", topics = {"notification"}, containerFactory = "singleFactory")
+    @KafkaListener(id = "client_group_id", topics = {"notification"}, containerFactory = "singleFactory")
     @SneakyThrows
     public void consume(KafkaEvent event) {
         log.info("=> consumed {}", writeValueAsString(event));
