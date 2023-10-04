@@ -23,8 +23,8 @@ public record OrderController(ClientService clientService, OrderMapper orderMapp
     }
 
     @GetMapping("/{id}")
-    public Order getOrderInfo(@PathVariable Long id) {
-        return clientService.getOrderInfo(id);
+    public OrderResponseDTO getOrderInfo(@PathVariable Long id) {
+        return orderMapper.toOrderResponse(clientService.getOrderInfo(id));
     }
 
 }

@@ -76,4 +76,10 @@ public class Order {
         setTotalPrice();
     }
 
+    public void addOrderItems(List<OrderItem> orderItems) {
+        orderItems.forEach(orderItem -> orderItem.setOrder(this));
+        this.orderItems.addAll(orderItems);
+        setTotalPrice();
+    }
+
 }
